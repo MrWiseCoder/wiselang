@@ -1,0 +1,10 @@
+# Folders
+build/
+release/
+debug/
+dist/
+
+# Files
+main
+*.out
+*.o
