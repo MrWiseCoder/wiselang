@@ -1,0 +1,75 @@
+#include <std.wlib>
+#include <builtins.wlib>
+
+import std
+import mem
+import .mymodule as mymod0
+import ..mymodule as mymod1
+import "../mymodule.wise" as mymod1a
+import "./mymodule.wise" as mymod1
+import "./mymodule.text" as mymod2
+
+#config dangerous {
+    version: 1.2;
+    mutation: true;
+    memory_access: true;
+}
+
+#config safer {
+    version: 1.3;
+    mutation: false;
+    memory_access: false;
+}
+
+use dangerous;
+
+struct student {
+    str name;
+    int age;
+};
+
+void incr(ptr arg1) {
+    (~arg1)++;
+}
+
+int main(int argc, str[] argv)
+{
+    print("haha ", end="- ");
+    print("hello world");
+    short age = 5;
+    incr(&age);
+    str name;
+    name = "sam";
+    printf("hello %s\n", name.upper());
+    auto l = [2, 3, 6, 4, "dur"];
+    int[] a = {3, 9, 5, 12};
+    echo len(l);
+    echo l.length;
+    l1 = list();
+    l2 = [];
+    char a1[5];
+    long a2[4];
+    ptr p;
+    p.setPointeeAddress(addressof(l2));
+    p.pointsTo = l2;
+    echo $ typeof p;
+    print(sizeof(p));
+    ptr p1 -> name;
+    auto p2 = &age;
+    ptr[] p3 -> l;
+    ptr[] p4 -> l[2:4];
+    ptr[] p5 -> a;
+    li.append("haydaaa");
+    arr[len(arr)] = 45;
+    ptr s -> malloc(sizeof(student));
+    ~s.name = "ozi"; // strcopy(s->name, "ozi");
+    ~s.age = 44;
+    student s1 = { .name = "ado", .age = 45 };
+    ptr s2 -> s1;
+    mem.alloc(sizeof(int) * 5) <- ptr[] my5ints;
+    mem.copy(&dest, &src);
+    mem.set(&dest, 0);
+    mem.free(&dest);
+    return 0;
+}
+
